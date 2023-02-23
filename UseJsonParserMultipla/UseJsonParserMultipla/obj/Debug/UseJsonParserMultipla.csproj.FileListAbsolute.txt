@@ -1,0 +1,10 @@
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\bin\UseJsonParserMultipla.dll.config
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\bin\UseJsonParserMultipla.dll
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\bin\UseJsonParserMultipla.pdb
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\bin\JsonParser.dll
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\bin\JsonParser.pdb
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\obj\Debug\UseJsonParserMultipla.csprojAssemblyReference.cache
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\obj\Debug\UseJsonParserMultipla.csproj.CoreCompileInputs.cache
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\obj\Debug\UseJsonParserMultipla.csproj.CopyComplete
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\obj\Debug\UseJsonParserMultipla.dll
+C:\Users\SHAKUR\source\repos\UseJsonParserMultipla\UseJsonParserMultipla\obj\Debug\UseJsonParserMultipla.pdb
