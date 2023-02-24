@@ -56,3 +56,42 @@ Like below table :
 |  1  | Jack      | 36     |                    |
 |  2  | Janatan| 30     |                    |
 |  3  | Natasha|        | 5896472358 |
+
+## Object In Object
+Sometimes one of our value consists a JsonObject even a JsonArray. we can use JsonParser for value of that column specifically
+
+### Example 1 :
+```
+string JsonStr = "{\"id\":\"1\",\"product\":\"TV\",\"number\":\"1\"
+                  ,\"extrainfo\":{\"product_id\":\"157895004\",\"product_serial\":\"8874500\",\"product_model\":\"M23TU\"}}";
+
+JsonParser.JParser JP = new JsonParser.JParser();
+DataTable dt = JP.JsonConvert(JsonStr);
+```
+> In this JsonObject that concern to a sale order, **extrainfo** include of another JsonObject.\
+If you need **extrainfo** values like ' product_id , product_serial , ... ' you must pass value of **extrainfo** column to JsonConvert.\
+The result is like this below table in first step of convert.
+
+|  id  |  product |  number |    extrainfo   |
+| --- | ---------- | --------- | ------------- |
+|  1  |      TV      |       1       | {"product_id":"157895004","product_serial":"8874500","product_model":"M23TU"} |
+
+> In the next step I pass value of **extrainfo** column to JsonConvert and get values.\
+Pass value like below code
+
+```
+DataTable dt_extrainfo = JP.JsonConvert(dt.Rows[0]["extrainfo"]);
+```
+|  product_id |  product_serial |  product_model |
+| ------------ | ----------------- | ----------------- |
+| 157895004 |       8874500      |       M23TU        | 
+
+**Note:** You can use loop (for , while...) for convert another rows simply
+```
+DataTable dt_extrainfo;
+for (int i = 0; i < dt.Rows.Count; i++)
+{
+    dt_extrainfo = new DataTable();
+    dt_extrainfo = JP.JsonConvert(dt.Rows[i]["extrainfo"].ToString());
+}
+```
