@@ -7,7 +7,7 @@ This is a simple way to parse your Json result to DataTable.\
 Instruction of use Json parser multiple :
 
 Just follow these simple steps to use JsonParser 
-- download JsonParserMultiple DLL from Nuget
+- download JsonParserMultiple DLL from [Nuget](https://www.nuget.org/packages/JsonParserMultiple/)
 - Use below samples code.
 
 Just run this sample code to parse json to datatable after download the DLL :
@@ -44,6 +44,8 @@ For example :
 string JsonStr = "[{\"id\":\"1\",\"name\":\"Jack\",\"age\":\"36\"}
                   ,{\"id\":\"2\",\"name\":\"Janatan\",\"age\":\"30\"}
                   ,{\"id\":\"3\",\"name\":\"Natasha\",\"zipcode\":\"5896472358\"}]";
+JsonParser.JParser JP = new JsonParser.JParser();
+DataTable dt = JP.JsonConvert(JsonStr);
 ```
 > We have **age** in first and second jsonobjects, but in third one we have **zipcode** instead of **age**.\
 Consequently in two first row we have **zipcode** with empty value and in third row we have empty value for **age** column and this value '5896472358' for **zipcode** column.\
