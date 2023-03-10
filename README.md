@@ -6,6 +6,8 @@
 This is a simple way to parse your Json result to DataTable.\
 Instruction of use Json parser multiple :
 
+# Methode 1 :
+
 Just follow these simple steps to use JsonParser 
 - download JsonParserMultiple DLL from [Nuget](https://www.nuget.org/packages/JsonParserMultiple/)
 - Use below samples code.
@@ -95,3 +97,73 @@ for (int i = 0; i < dt.Rows.Count; i++)
     dt_extrainfo = JP.JsonConvert(dt.Rows[i]["extrainfo"].ToString());
 }
 ```
+### Example 2 :
+**Note:** Another solution for this case is **JsonConvertToDictionary** method.
+> In previous example we had **extrainfo** column that must convert, we used again JsonConvert and get values in another DataTable\
+now we can receive our information in a Dictionary. It is the DataTable that extrainfo column has a JasonObject\
+and we want to get valus such as **product_serial**, pay attention to below code.
+
+|  id  |  product |  number |    extrainfo   |
+| --- | ---------- | --------- | ------------- |
+|  1  |      TV      |       1       | {"product_id":"157895004","product_serial":"8874500","product_model":"M23TU"} |
+
+```
+Dictionary<string, string> DicExtrainfo = JP.JsonConvertToDictionary(dt.Rows[i]["extrainfo"].ToString());
+```
+
+# Convert to Dictionary
+## You can get the result in a Dictionary instead of DataTable
+**Note:** This method can uses just for one row not more\
+&#9745; {"product_id":"157895004","product_serial":"8874500","product_model":"M23TU"}  (True)\
+&#9746; [{"id":"1","product":"refrigerator"},{"id":"2","product":"carpet"}] (False) we have two rows in this case
+
+### Example 1 :
+```
+string JsonStr = "{\"id\":\"1\",\"name\":\"Natasha\",\"zipcode\":\"5896472358\"}";
+JsonParser.JParser JP = new JsonParser.JParser();
+Dictionary<string, string> Dic = JP.JsonConvertToDictionary(JsonStr);
+```
+> **JsonConvertToDictionary** could use like **JsonConvert**.
+
+
+## Object/Array In Object
+### Example 1 :
+In this JsonObject that concern to a sale order, **extrainfo** include of another JsonObject.\
+If you need **extrainfo** values like ' product_id , product_serial , ... ' you must pass value of **extrainfo** key to JsonConvertToDictionary.
+
+```
+string JsonStr = "{\"id\":\"1\",\"product\":\"TV\",\"number\":\"1\"
+                  ,\"extrainfo\":{\"product_id\":\"157895004\",\"product_serial\":\"8874500\"
+                  ,\"product_model\":\"M23TU\"}}";
+
+JsonParser.JParser JP = new JsonParser.JParser();
+Dictionary<string, string> Dic = JP.JsonConvertToDictionary(JsonStr);
+Dictionary<string, string> DicExtrainfo = JP.JsonConvertToDictionary(Dic["extrainfo"]);
+```
+
+# Methode 2 :
+
+## Parse Json individually step by step by JsonObject and JsonArray classes.
+### Example 1 :
+```
+string str = "{\"Table1\":[{\"id\":\"1\",\"name\":\"Koorosh\",\"age\":\"36\"},{\"id\":\"2\",\"name\":\"Ahoora\",\"age\":\"30\"}]
+ ,\"Table2\":[{\"id\":\"1\",\"product\":\"Speacker\",\"price\":\"60\"},{\"id\":\"2\",\"product\":\"Monitor\",\"price\":\"250\"}]}";
+JsonParser.JsonObject jsonobject = new JsonParser.JsonObject(str, "Table2");
+string array_str = jsonobject.GetJsonArray();
+JsonParser.JsonArray jarray = new JsonParser.JsonArray(array_str);
+List<string> results = jarray.ConvertJsonArray();
+for (int i = 0; i < results.Count; i++)
+{
+      Dictionary<string, string> jobj = jsonobject.GetJsonObject(results[i]);
+      string id = jobj["id"];
+      string product = jobj["product"];
+      string price= jobj["price"];
+}
+```
+> There is a JsonObject that includes two JsonArrays that challed 'Table1' and 'Table2'\
+We want to parse 'Table2', so use above code\
+1 ) First and second line : get JsonArray that called 'Table2'\
+2 ) Third and fourth line : get JsonObjects in JsonArray\
+3 ) Then by use a simple loop we can access to our values
+
+**Note:** Don't forget each of the values can includes another JasonObject or a JsonArray.
